@@ -1,11 +1,9 @@
-;; title:   game title
-;; author:  game developer, email, etc.
-;; desc:    short description
-;; site:    website link
-;; license: MIT License (change this to your license of choice)
-;; version: 0.1
+;; title:   tic-tac-toe
+;; author:  @nafarlee
+;; license: MIT License
 ;; script:  fennel
 ;; strict:  true
+
 (local fennel (require :fennel))
 
 (local HEIGHT 135)
