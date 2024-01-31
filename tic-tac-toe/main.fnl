@@ -6,21 +6,43 @@
 ;; version: 0.1
 ;; script:  fennel
 ;; strict:  true
+(local fennel (require :fennel))
 
-(var t 0)
-(var x 96)
-(var y 24)
+(local HEIGHT 135)
+(local WIDTH 240)
+(local EMPTY "")
+(local X :X)
+(local O :O)
+
+(var board nil)
+
+(fn center [start size end]
+  (-> (- end start size)
+      (// 2)
+      (+ start)))
+
+(fn make-board []
+  [[EMPTY EMPTY EMPTY]
+   [EMPTY EMPTY EMPTY]
+   [EMPTY EMPTY EMPTY]])
+
+(fn draw-grid []
+  (local thic 2)
+  (local half-thic (// thic 2))
+  (rect 0 (-> HEIGHT (// 3) (- half-thic)) WIDTH thic 8)
+  (rect 0 (-> HEIGHT (// 3) (* 2) (- half-thic)) WIDTH thic 8)
+  (rect (-> WIDTH (// 3) (- half-thic)) 0 thic HEIGHT 8)
+  (rect (-> WIDTH (// 3) (* 2) (- half-thic)) 0 thic HEIGHT 8))
+
+(fn _G.BOOT []
+  (set board (make-board)))
 
 (fn _G.TIC []
-  (when (btn 0) (set y (- y 1)))
-  (when (btn 1) (set y (+ y 1)))
-  (when (btn 2) (set x (- x 1)))
-  (when (btn 3) (set x (+ x 1)))
-  (cls 0)
-  (spr (+ 1 (* (// (% t 60) 30) 2))
-       x y 14 3 0 0 2 2)
-  (print "HELLO WORLD!" 84 84)
-  (set t (+ t 1)))
+  (local text-board (fennel.view board))
+  (local width (print text-board 0 -6))
+  (cls)
+  (print text-board (center 0 width WIDTH) (center 0 6 HEIGHT))
+  (draw-grid))
 
 ;; <TILES>
 ;; </TILES>
