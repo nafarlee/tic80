@@ -13,10 +13,6 @@
 (local O :O)
 (local GRID_THICKNESS 4)
 
-(var state
-  {:board nil
-   :turn X})
-
 (fn center [start size end]
   (-> (- end start size)
       (/ 2)
@@ -64,6 +60,10 @@
   (print (.. "Turn: " state.turn))
   (draw-grid)
   (draw-marks state.board))
+
+(var state
+  {:board nil
+   :turn X})
 
 (fn _G.BOOT []
   (set state.board (make-board)))
