@@ -69,7 +69,10 @@
   (set state.board (make-board)))
 
 (fn _G.TIC []
-  (draw state))
+  (local (x y) (mouse))
+  (local pressed (keyp))
+  (draw state)
+  (print (fennel.view {: x : y : pressed}) 0 (- HEIGHT 6)))
 
 ;; <TILES>
 ;; </TILES>
