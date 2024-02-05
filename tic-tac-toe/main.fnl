@@ -11,36 +11,65 @@
 (local EMPTY "")
 (local X :X)
 (local O :O)
+(local GRID_THICKNESS 4)
 
-(var board nil)
+(var state
+  {:board nil
+   :turn X})
 
 (fn center [start size end]
   (-> (- end start size)
-      (// 2)
+      (/ 2)
       (+ start)))
 
 (fn make-board []
-  [[EMPTY EMPTY EMPTY]
-   [EMPTY EMPTY EMPTY]
+  [[X     EMPTY EMPTY]
+   [EMPTY O     EMPTY]
    [EMPTY EMPTY EMPTY]])
 
+(fn draw-vertical-gridline [x]
+  (rect x 0 GRID_THICKNESS HEIGHT 8))
+
+(fn draw-horizontal-gridline [y]
+  (rect 0 y WIDTH GRID_THICKNESS 8))
+
 (fn draw-grid []
-  (local thic 2)
-  (local half-thic (// thic 2))
-  (rect 0 (-> HEIGHT (// 3) (- half-thic)) WIDTH thic 8)
-  (rect 0 (-> HEIGHT (// 3) (* 2) (- half-thic)) WIDTH thic 8)
-  (rect (-> WIDTH (// 3) (- half-thic)) 0 thic HEIGHT 8)
-  (rect (-> WIDTH (// 3) (* 2) (- half-thic)) 0 thic HEIGHT 8))
+  (local half-thic (/ GRID_THICKNESS 2))
+  (draw-horizontal-gridline (- (/ HEIGHT 3) half-thic))
+  (draw-horizontal-gridline (- (* 2 (/ HEIGHT 3)) half-thic))
+  (draw-vertical-gridline (- (/ WIDTH 3) half-thic))
+  (draw-vertical-gridline (- (* 2 (/ WIDTH 3)) half-thic)))
+
+(fn draw-o [x y]
+  (circb x y 4 8))
+
+(fn draw-x [x y]
+  (line (- x 3) (- y 3) (+ x 3) (+ y 3) 8)
+  (line (- x 3) (+ y 3) (+ x 3) (- y 3) 8))
+
+(fn draw-marks [board]
+  (local x-step (/ WIDTH 6))
+  (local y-step (/ HEIGHT 6))
+  (each [r row (ipairs board)]
+    (each [c mark (ipairs row)]
+      (local x (+ x-step (* 2 x-step (- r 1))))
+      (local y (+ y-step (* 2 y-step (- c 1))))
+      (match mark
+        EMPTY nil
+        O     (draw-o x y)
+        X     (draw-x x y)))))
+
+(fn draw [state]
+  (cls)
+  (print (.. "Turn: " state.turn))
+  (draw-grid)
+  (draw-marks state.board))
 
 (fn _G.BOOT []
-  (set board (make-board)))
+  (set state.board (make-board)))
 
 (fn _G.TIC []
-  (local text-board (fennel.view board))
-  (local width (print text-board 0 -6))
-  (cls)
-  (print text-board (center 0 width WIDTH) (center 0 6 HEIGHT))
-  (draw-grid))
+  (draw state))
 
 ;; <TILES>
 ;; </TILES>
