@@ -62,6 +62,12 @@
   (draw-grid)
   (draw-marks state.board))
 
+(fn collides? [[rx ry width height] x y]
+  (and (> x rx)
+       (< x (+ rx width))
+       (> y ry)
+       (< y (+ ry height))))
+
 (var state
   {:board nil
    :turn X})
