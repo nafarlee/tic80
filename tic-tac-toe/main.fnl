@@ -32,11 +32,10 @@
   (rect 0 y WIDTH GRID_THICKNESS 8))
 
 (fn draw-grid []
-  (local half-thic (/ GRID_THICKNESS 2))
-  (draw-horizontal-gridline (- (/ HEIGHT 3) half-thic))
-  (draw-horizontal-gridline (- (* 2 (/ HEIGHT 3)) half-thic))
-  (draw-vertical-gridline (- (/ WIDTH 3) half-thic))
-  (draw-vertical-gridline (- (* 2 (/ WIDTH 3)) half-thic)))
+  (draw-horizontal-gridline CELL_HEIGHT)
+  (draw-horizontal-gridline (+ CELL_HEIGHT GRID_THICKNESS CELL_HEIGHT))
+  (draw-vertical-gridline CELL_WIDTH)
+  (draw-vertical-gridline (+ CELL_WIDTH GRID_THICKNESS CELL_WIDTH)))
 
 (fn draw-o [x y]
   (circb x y 4 8))
