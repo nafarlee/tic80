@@ -62,7 +62,7 @@
   (draw-grid)
   (draw-marks state.board))
 
-(fn collides? [[rx ry width height] x y]
+(fn within? [[rx ry width height] x y]
   (and (> x rx)
        (< x (+ rx width))
        (> y ry)
