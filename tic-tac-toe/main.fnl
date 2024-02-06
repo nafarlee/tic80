@@ -12,6 +12,8 @@
 (local X :X)
 (local O :O)
 (local GRID_THICKNESS 4)
+(local CELL_WIDTH (/ (- WIDTH (* 2 GRID_THICKNESS)) 3))
+(local CELL_HEIGHT (/ (- HEIGHT (* 2 GRID_THICKNESS)) 3))
 
 (fn center [start size end]
   (-> (- end start size)
