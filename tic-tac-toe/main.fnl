@@ -42,11 +42,12 @@
   (draw-vertical-gridline (+ CELL_WIDTH GRID_THICKNESS CELL_WIDTH)))
 
 (fn draw-o [x y]
-  (circb x y 4 8))
+  (circb x y 3 1)
+  (circb x y 4 2))
 
 (fn draw-x [x y]
-  (line (- x 3) (- y 3) (+ x 3) (+ y 3) 8)
-  (line (- x 3) (+ y 3) (+ x 3) (- y 3) 8))
+  (line (- x 3) (- y 3) (+ x 3) (+ y 3) 10)
+  (line (- x 3) (+ y 3) (+ x 3) (- y 3) 9))
 
 (fn draw-marks [board]
   (local x-step (/ WIDTH 6))
