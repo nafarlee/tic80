@@ -25,6 +25,10 @@
    [EMPTY O     EMPTY]
    [EMPTY EMPTY EMPTY]])
 
+(fn make-state []
+  {:board (make-board)
+   :turn  X})
+
 (fn draw-vertical-gridline [x]
   (rect x 0 GRID_THICKNESS HEIGHT 8))
 
