@@ -83,12 +83,10 @@
    CELL_WIDTH
    CELL_HEIGHT])
 
-(var state
-  {:board nil
-   :turn X})
+(var state nil)
 
 (fn _G.BOOT []
-  (set state.board (make-board)))
+  (set state (make-state)))
 
 (fn _G.TIC []
   (local (x y) (mouse))
