@@ -73,6 +73,12 @@
                     X O
                     O X)))
 
+(fn coordinates->hitbox [r c]
+  [(* (- r 1) (+ CELL_WIDTH GRID_THICKNESS))
+   (* (- c 1) (+ CELL_HEIGHT GRID_THICKNESS))
+   CELL_WIDTH
+   CELL_HEIGHT])
+
 (var state
   {:board nil
    :turn X})
