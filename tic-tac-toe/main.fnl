@@ -68,6 +68,11 @@
        (> y ry)
        (< y (+ ry height))))
 
+(fn flip-turn! [state]
+  (set state.turn (match state.turn
+                    X O
+                    O X)))
+
 (var state
   {:board nil
    :turn X})
