@@ -21,8 +21,8 @@
       (+ start)))
 
 (fn make-board []
-  [[X     EMPTY EMPTY]
-   [EMPTY O     EMPTY]
+  [[EMPTY EMPTY EMPTY]
+   [EMPTY EMPTY EMPTY]
    [EMPTY EMPTY EMPTY]])
 
 (fn make-state []
