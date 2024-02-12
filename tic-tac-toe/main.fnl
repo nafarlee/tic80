@@ -93,15 +93,14 @@
   (set state (make-state)))
 
 (fn _G.TIC []
-  (let [reset? (keyp 18)]
-    (when reset?
-      (reset)))
-  (let [(x y)   (mouse)
-        pressed (keyp)
-        inputs  {: x : y : pressed}]
-    (state.update! inputs state)
-    (draw state)
-    (print (fennel.view inputs) 0 (- HEIGHT 6))))
+  (if (keyp 18)
+    (reset)
+    (let [pressed (keyp)
+          (x y)   (mouse)
+          inputs  {: x : y : pressed}]
+      (state.update! inputs state)
+      (draw state)
+      (print (fennel.view inputs) 0 (- HEIGHT 6)))))
 
 ;; <TILES>
 ;; </TILES>
