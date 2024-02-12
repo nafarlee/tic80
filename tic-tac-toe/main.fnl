@@ -112,11 +112,7 @@
   (local (x y) (mouse))
   (local pressed (keyp))
   (local inputs {: x : y : pressed})
-  (each [r row (ipairs state.board)]
-    (each [c _ (ipairs row)]
-      (when (and pressed (within? (coordinates->hitbox r c) x y))
-        (tset state.board r c state.turn)
-        (flip-turn! state))))
+  (state.update inputs state)
   (draw state)
   (print (fennel.view inputs) 0 (- HEIGHT 6)))
 
