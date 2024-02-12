@@ -15,11 +15,6 @@
 (local CELL_WIDTH (/ (- WIDTH (* 2 GRID_THICKNESS)) 3))
 (local CELL_HEIGHT (/ (- HEIGHT (* 2 GRID_THICKNESS)) 3))
 
-(fn center [start size end]
-  (-> (- end start size)
-      (/ 2)
-      (+ start)))
-
 (fn make-board []
   [[EMPTY EMPTY EMPTY]
    [EMPTY EMPTY EMPTY]
@@ -63,22 +58,10 @@
   (draw-grid)
   (draw-marks state.board))
 
-(fn within? [[rx ry width height] x y]
-  (and (> x rx)
-       (< x (+ rx width))
-       (> y ry)
-       (< y (+ ry height))))
-
 (fn flip-turn! [state]
   (set state.turn (match state.turn
                     X O
                     O X)))
-
-(fn coordinates->hitbox [r c]
-  [(* (- r 1) (+ CELL_WIDTH GRID_THICKNESS))
-   (* (- c 1) (+ CELL_HEIGHT GRID_THICKNESS))
-   CELL_WIDTH
-   CELL_HEIGHT])
 
 (fn position->cell [x y]
   (local r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS))))
