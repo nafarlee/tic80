@@ -84,6 +84,12 @@
    CELL_WIDTH
    CELL_HEIGHT])
 
+(fn position->cell [x y]
+  (local r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS))))
+  (local c (math.ceil (/ y (+ CELL_HEIGHT GRID_THICKNESS))))
+  (when (< r 4) (< c 4)
+    [r c]))
+
 (var state nil)
 
 (fn _G.BOOT []
