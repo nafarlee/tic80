@@ -69,22 +69,23 @@
     (when (< r 4) (< c 4)
       [r c])))
 
-(fn place-marker [inputs state]
+(fn place-marker! [inputs state]
   (local cell (position->cell inputs.x inputs.y))
   (if (and cell inputs.pressed)
     (let [(r c) (table.unpack cell)]
       (tset state.board r c state.turn))
-    (place-marker (coroutine.yield))))
+    (let [(inputs state) (coroutine.yield)]
+      (place-marker! inputs state))))
 
-(fn update [inputs state]
+(fn update! [inputs state]
   (while true
-    (place-marker inputs state)
+    (place-marker! inputs state)
     (flip-turn! state)))
 
 (fn make-state []
   {:board  (make-board)
    :turn   X
-   :update (coroutine.wrap update)})
+   :update! (coroutine.wrap update!)})
 
 (var state nil)
 
