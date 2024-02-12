@@ -97,6 +97,11 @@
       (tset state.board r c state.turn))
     (place-marker (coroutine.yield))))
 
+(fn update [inputs state]
+  (while true
+    (place-marker inputs state)
+    (flip-turn! state)))
+
 (var state nil)
 
 (fn _G.BOOT []
