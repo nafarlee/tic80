@@ -93,7 +93,9 @@
   (set state (make-state)))
 
 (fn _G.TIC []
-  (let [(x y) (mouse)
+  (let [reset? (keyp 18)]
+    (when reset?
+      (reset)))
   (let [(x y)   (mouse)
         pressed (keyp)
         inputs  {: x : y : pressed}]
