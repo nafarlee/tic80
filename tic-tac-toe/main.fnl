@@ -66,7 +66,7 @@
 (fn position->cell [x y]
   (let [r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS)))
         c (math.ceil (/ y (+ CELL_HEIGHT GRID_THICKNESS)))]
-    (when (< r 4) (< c 4)
+    (when (and (<= 1 r 3) (<= 1 c 3))
       [r c])))
 
 (fn place-marker! [inputs state]
