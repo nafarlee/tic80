@@ -94,9 +94,10 @@
 
 (fn _G.TIC []
   (let [(x y) (mouse)
+  (let [(x y)   (mouse)
         pressed (keyp)
-        inputs {: x : y : pressed}]
-    (state.update inputs state)
+        inputs  {: x : y : pressed}]
+    (state.update! inputs state)
     (draw state)
     (print (fennel.view inputs) 0 (- HEIGHT 6))))
 
