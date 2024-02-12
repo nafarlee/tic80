@@ -63,6 +63,26 @@
                     X O
                     O X)))
 
+(fn check-victory [board]
+  (local winning-states [[[1 1] [1 2] [1 3]]
+                         [[2 1] [2 2] [2 3]]
+                         [[3 1] [3 2] [3 3]]
+                         [[1 1] [2 1] [3 1]]
+                         [[2 1] [2 2] [2 3]]
+                         [[3 1] [3 2] [3 3]]
+                         [[1 1] [2 2] [3 3]]
+                         [[3 1] [2 2] [1 3]]])
+  (each [_ state (ipairs winning-states)]
+    (local counts {X 0 O 0 EMPTY 0})
+    (each [_ coordinate (ipairs state)]
+      (local (r c) (table.unpack coordinate))
+      (local mark (. board r c))
+      (tset counts mark (+ 1 (. counts mark))))
+    (match counts
+      {:X 3} (lua "return X, state")
+      {:O 3} (lua "return O, state")
+      _      nil)))
+
 (fn position->cell [x y]
   (let [r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS)))
         c (math.ceil (/ y (+ CELL_HEIGHT GRID_THICKNESS)))]
