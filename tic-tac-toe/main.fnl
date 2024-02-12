@@ -90,6 +90,13 @@
   (when (< r 4) (< c 4)
     [r c]))
 
+(fn place-marker [inputs state]
+  (local cell (position->cell inputs.x inputs.y))
+  (if (and cell inputs.pressed)
+    (let [(r c) (table.unpack cell)]
+      (tset state.board r c state.turn))
+    (place-marker (coroutine.yield))))
+
 (var state nil)
 
 (fn _G.BOOT []
