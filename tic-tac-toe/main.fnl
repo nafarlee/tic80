@@ -100,6 +100,8 @@
 (fn update! [inputs state]
   (while true
     (place-marker! inputs state)
+    (local (winner coordinates) (check-victory state.board))
+    (trace (fennel.view {: winner : coordinates}))
     (flip-turn! state)))
 
 (fn make-state []
