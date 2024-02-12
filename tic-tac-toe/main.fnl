@@ -41,16 +41,16 @@
   (line (- x 3) (+ y 3) (+ x 3) (- y 3) 9))
 
 (fn draw-marks [board]
-  (local x-step (/ WIDTH 6))
-  (local y-step (/ HEIGHT 6))
   (each [r row (ipairs board)]
     (each [c mark (ipairs row)]
-      (local x (+ x-step (* 2 x-step (- r 1))))
-      (local y (+ y-step (* 2 y-step (- c 1))))
-      (match mark
-        EMPTY nil
-        O     (draw-o x y)
-        X     (draw-x x y)))))
+      (let [x-step (/ WIDTH 6)
+            x (+ x-step (* 2 x-step (- r 1)))
+            y-step (/ HEIGHT 6)
+            y (+ y-step (* 2 y-step (- c 1)))]
+        (match mark
+          EMPTY nil
+          O     (draw-o x y)
+          X     (draw-x x y))))))
 
 (fn draw [state]
   (cls)
@@ -64,10 +64,10 @@
                     O X)))
 
 (fn position->cell [x y]
-  (local r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS))))
-  (local c (math.ceil (/ y (+ CELL_HEIGHT GRID_THICKNESS))))
-  (when (< r 4) (< c 4)
-    [r c]))
+  (let [r (math.ceil (/ x (+ CELL_WIDTH GRID_THICKNESS)))
+        c (math.ceil (/ y (+ CELL_HEIGHT GRID_THICKNESS)))]
+    (when (< r 4) (< c 4)
+      [r c])))
 
 (fn place-marker [inputs state]
   (local cell (position->cell inputs.x inputs.y))
@@ -92,12 +92,12 @@
   (set state (make-state)))
 
 (fn _G.TIC []
-  (local (x y) (mouse))
-  (local pressed (keyp))
-  (local inputs {: x : y : pressed})
-  (state.update inputs state)
-  (draw state)
-  (print (fennel.view inputs) 0 (- HEIGHT 6)))
+  (let [(x y) (mouse)
+        pressed (keyp)
+        inputs {: x : y : pressed}]
+    (state.update inputs state)
+    (draw state)
+    (print (fennel.view inputs) 0 (- HEIGHT 6))))
 
 ;; <TILES>
 ;; </TILES>
